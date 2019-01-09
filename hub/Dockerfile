@@ -5,4 +5,8 @@ RUN wget https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.9.3/examples/
 
 RUN pip install --upgrade pip
 
-RUN pip install jupyterhub-ldapauthenticator
+RUN pip install jupyterhub-ldapauthenticator dockerspawner
+
+COPY ./jupyterhub_config.py /etc/jupyterhub/jupyterhub_config.py
+
+CMD jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
