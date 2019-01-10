@@ -11,4 +11,4 @@ RUN pip install oauthenticator dockerspawner
 
 COPY ./jupyterhub_config.py /etc/jupyterhub/jupyterhub_config.py
 
-CMD jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
+CMD ["jupyterhub", "-f", "/etc/jupyterhub/jupyterhub_config.py"]
