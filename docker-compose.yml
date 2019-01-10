@@ -5,6 +5,7 @@ services:
   jupyterhub:
     build: ./hub             # Build the container from the subfolder.
     container_name: jupyterhub_hub   # The service will use this container name.
+    restart: unless-stopped
     volumes:                         # Give access to Docker socket.
       - /var/run/docker.sock:/var/run/docker.sock
       - jupyterhub_data:/srv/jupyterhub
@@ -20,6 +21,7 @@ services:
   # Configuration for reverse proxy
   reverse-proxy:
     image: traefik:latest
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
