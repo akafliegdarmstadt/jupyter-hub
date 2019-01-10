@@ -9,14 +9,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - jupyterhub_data:/srv/jupyterhub
     environment:                     # Env variables passed to the Hub process.
-      DOCKER_JUPYTER_IMAGE: jupyter/scipy-notebook:latest 
-      DOCKER_NETWORK_NAME: web
-      HUB_IP: jupyterhub_hub
+      - "DOCKER_JUPYTER_IMAGE=jupyter/scipy-notebook:latest"
+      - "DOCKER_NETWORK_NAME=web" 
+      - "HUB_IP=jupyterhub_hub"
     labels:                          # Traefik configuration.
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:hessen.akaflieg.tu-darmstadt.de"
-    networks:
-            - web
+      - "traefik.frontend.rule=Host:jupyter.akaflieg.tu-darmstadt.de"
+
 
   # Configuration for reverse proxy
   reverse-proxy:
@@ -29,19 +28,17 @@ services:
       - ./traefik/traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/acme.json:/acme.json
-    networks:
-            - web
 
   # Configuration for the single-user servers
   jupyterlab:
     image: jupyter/scipy-notebook:latest
     command: echo
-    networks:
-            - web
 
 volumes:
   jupyterhub_data:
 
 networks:
-  web:
+  default:
+    external:
+      name: web
 
