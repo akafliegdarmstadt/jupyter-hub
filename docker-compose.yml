@@ -16,7 +16,8 @@ services:
     labels:                          # Traefik configuration.
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:jupyter.akaflieg.tu-darmstadt.de"
-
+    depends_on:
+        - reverse-proxy
 
   # Configuration for reverse proxy
   reverse-proxy:
@@ -31,11 +32,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/acme.json:/acme.json
 
-  # Configuration for the single-user servers
-  jupyterlab:
-    image: jupyter/scipy-notebook:latest
-    command: echo
-
+        # This can be uncommented to ensure image is ready on startup
+        #  jupyterlab:
+        #image#: jupyter/scipy-notebook:latest
+        #command: echo
+ 
 volumes:
   jupyterhub_data:
 
