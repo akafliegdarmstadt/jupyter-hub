@@ -19,6 +19,7 @@ c.JupyterHub.services = [
 #c.LDAPAuthenticator.bind_dn_template = []
 #c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator'
 
+# GitHub Authentication
 c.JupyterHub.authenticator_class = GitHubOAuthenticator
 c.GitHubOAuthenticator.oauth_callback_url = 'https://jupyter.akaflieg.tu-darmstadt.de/hub/oauth_callback'
 c.GitHubOAuthenticator.client_id = '3fb6064ba4797d2b93fa'
@@ -27,3 +28,8 @@ c.Authenticator.admin_users = {'nichtmonti'}
 
 # Whitelist
 c.Authenticator.whitelist = {'nichtmonti', 'helo9', 'candraw','moni9'}
+
+# User Data Persistence with Docker Volumes
+notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
+c.DockerSpawner.notebook_dir = notebook_dir
+c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
