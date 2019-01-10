@@ -24,3 +24,6 @@ c.GitHubOAuthenticator.oauth_callback_url = 'https://jupyter.akaflieg.tu-darmsta
 c.GitHubOAuthenticator.client_id = '3fb6064ba4797d2b93fa'
 c.GitHubOAuthenticator.client_secret = '39e18dec48c28ecbff1994122e80eec7d316a4e8'
 c.Authenticator.admin_users = {'nichtmonti'}
+
+# Whitelist
+c.Authenticator.whitelist = {'nichtmonti', 'helo9', 'candraw','moni9'}
