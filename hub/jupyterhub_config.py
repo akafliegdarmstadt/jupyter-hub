@@ -33,3 +33,6 @@ c.Authenticator.whitelist = {'nichtmonti', 'helo9', 'candraw','moni9'}
 notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
 c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
+c.DockerSpawner.environment = {
+    'JUPYTER_ENABLE_LAB': '1',
+}
