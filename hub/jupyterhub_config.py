@@ -1,5 +1,4 @@
 import os
-from oauthenticator.github import GitHubOAuthenticator
 
 
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
@@ -15,15 +14,15 @@ c.JupyterHub.services = [
     },
 ]
 
-#c.LDAPAuthenticator.server_address = 'ldap.example.com'
-#c.LDAPAuthenticator.bind_dn_template = []
-#c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator'
 
-# GitHub Authentication
-c.JupyterHub.authenticator_class = GitHubOAuthenticator
-c.GitHubOAuthenticator.oauth_callback_url = 'https://jupyter.akaflieg.tu-darmstadt.de/hub/oauth_callback'
-c.GitHubOAuthenticator.client_id = '3fb6064ba4797d2b93fa'
-c.GitHubOAuthenticator.client_secret = '39e18dec48c28ecbff1994122e80eec7d316a4e8'
+# Authentication
+c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator'
+c.LDAPAuthenticator.server_address = 'karldergrosse.akaflieg.tu-darmstadt.de'
+c.LDAPAuthenticator.bind_dn_template = 'akaflieg.tu-darmstadt.de{username}'
+c.LDAPAuthenticator.lookup_dn = True
+c.LDAPAuthenticator.user_search_base = 'CN=Users,DC=akaflieg,DC=tu-darmstadt,DC=de'
+c.LDAPAuthenticator.user_attribute = 'sAMAccountName'
+c.LDAPAuthenticator.allowed_groups = []
 c.Authenticator.admin_users = {'nichtmonti'}
 
 # Whitelist
