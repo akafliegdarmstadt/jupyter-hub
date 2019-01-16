@@ -21,8 +21,6 @@ c.LDAPAuthenticator.server_address = 'karldergrosse.akaflieg.tu-darmstadt.de'
 c.LDAPAuthenticator.bind_dn_template = ['CN={username},CN=Users,DC=akaflieg,DC=tu-darmstadt,DC=de']
 c.LDAPAuthenticator.user_attribute = 'name'
 c.LDAPAuthenticator.allowed_groups = []
-c.Authenticator.admin_users = {'nichtmonti'}
-
 c.LDAPAuthenticator.lookup_dn = False
 c.LDAPAuthenticator.use_ssl = True
 
