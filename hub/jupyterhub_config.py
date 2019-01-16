@@ -18,15 +18,16 @@ c.JupyterHub.services = [
 # Authentication
 c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator'
 c.LDAPAuthenticator.server_address = 'karldergrosse.akaflieg.tu-darmstadt.de'
-c.LDAPAuthenticator.bind_dn_template = 'akaflieg.tu-darmstadt.de{username}'
-c.LDAPAuthenticator.lookup_dn = True
-c.LDAPAuthenticator.user_search_base = 'CN=Users,DC=akaflieg,DC=tu-darmstadt,DC=de'
-c.LDAPAuthenticator.user_attribute = 'sAMAccountName'
+c.LDAPAuthenticator.bind_dn_template = ['CN={username},CN=Users,DC=akaflieg,DC=tu-darmstadt,DC=de']
+c.LDAPAuthenticator.user_attribute = 'name'
 c.LDAPAuthenticator.allowed_groups = []
 c.Authenticator.admin_users = {'nichtmonti'}
 
-# Whitelist
-c.Authenticator.whitelist = {'nichtmonti', 'helo9', 'candraw','moni9'}
+c.LDAPAuthenticator.lookup_dn = False
+c.LDAPAuthenticator.use_ssl = True
+
+#Admins
+c.Authenticator.admin_users = {'sebastian_clermont', 'jannik_birk'}
 
 # User Data Persistence with Docker Volumes
 notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
