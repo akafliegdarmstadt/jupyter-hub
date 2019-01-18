@@ -11,13 +11,15 @@ services:
       - jupyterhub_data:/srv/jupyterhub
     environment:                     # Env variables passed to the Hub process.
       - "DOCKER_JUPYTER_IMAGE=jupyter:wingstructure"
-      - "DOCKER_NETWORK_NAME=jupyter-hub_default" # MIGHT NEEDS TO BE ADJUSTED TO CORRELATE TO THE DEFAULT NETWORK
+      - "DOCKER_NETWORK_NAME=jupyterhub-production" # MIGHT NEEDS TO BE ADJUSTED TO CORRELATE TO THE DEFAULT NETWORK
       - "HUB_IP=jupyterhub_hub"
     labels:                          # Traefik configuration.
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:jupyter.akaflieg.tu-darmstadt.de"
     depends_on:
         - reverse-proxy
+    networks:
+        - jupyterhub-production
 
   # Configuration for reverse proxy
   reverse-proxy:
@@ -31,6 +33,8 @@ services:
       - ./traefik/traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/acme.json:/acme.json
+    networks:
+        - jupyterhub-production
 
   #This can be uncommented to ensure image is ready on startup
   jupyterlab:
@@ -39,8 +43,11 @@ services:
       dockerfile: Dockerfile
     image: jupyter:wingstructure
     command: echo
- 
+     
 volumes:
   jupyterhub_data:
 
-
+networks:
+  jupyterhub-production:
+          external: true
+                 
