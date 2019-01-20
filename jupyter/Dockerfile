@@ -7,9 +7,5 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 jupyter labextension install jupyter-matplotlib && \
 jupyter nbextension enable --py widgetsnbextension
 
-RUN pip install https://github.com/helo9/wingstructure/archive/master.zip
-
+RUN pip install wingstructure
 RUN pip install ipympl nodejs ipywidgets
-
-
-
